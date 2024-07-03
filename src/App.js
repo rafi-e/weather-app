@@ -21,7 +21,7 @@ import {
 import { TbTemperatureCelsius } from "react-icons/tb";
 import { ImSpinner8 } from "react-icons/im";
 
-const APIkey = process.env.REACT_APP_API_KEY
+const APIkey = process.env.REACT_APP_API_KEY;
 
 const App = () => {
   const [data, setData] = useState(null);
@@ -79,7 +79,7 @@ const App = () => {
     }, 2000);
     return () => clearTimeout(timer);
   }, [errorMsg]);
- 
+
   if (!data) {
     return (
       <div className="w-full h-screen bg-gradientBg bg-no-repeat bg-cover bg-center flex flex-col justify-center items-center">
@@ -120,7 +120,7 @@ const App = () => {
   return (
     <div className="w-full h-full bg-gradientBg bg-no-repeat bg-cover bg-center flex gap-4 flex-col items-center justify-center px-4 lg:px-0">
       {errorMsg && (
-        <div className="w-full max-w-[90vw] lg:max-w-[450px] bg-[#ff208c] text-white absolute top-2 lg:top-10 p-4 capitalize rounded-md ">{`${errorMsg.response.data.message}`}</div>
+        <div className="w-full max-w-[90vw] lg:max-w-[450px] bg-[#ff208c] text-white absolute top-2 lg:top-10 p-4 capitalize rounded-md z-50">{`${errorMsg.response.data.message}`}</div>
       )}
       <form
         className={`${
@@ -130,13 +130,13 @@ const App = () => {
         <div className="h-full relative flex items-center justify-between p-2 ">
           <input
             onChange={(e) => handleInput(e)}
-            className="flex-1 bg-transparent outline-none placeholder:text-white text-white text-[15px] font-light pl-6 h-full"
+            className="flex-1 bg-transparent outline-none pl-24 text-white text-[15px] placeholder:text-gray-500 font-light h-full"
             type="text"
             placeholder="Search by city or country"
           />
           <button
             onClick={(e) => handleSubmit(e)}
-            className="bg-[#1ab8ed] hover:bg-[#15abdd] w-20 h-12 rounded-full flex justify-center items-center transition"
+            className="bg-[#1ab8ed] hover:bg-[#15abdd] w-20 h-12 rounded-full absolute flex justify-center items-center transition z-20"
           >
             <IoMdSearch className="text-2xl text-white" />
           </button>
@@ -144,7 +144,7 @@ const App = () => {
       </form>
       <div className="w-full max-w-[450px] bg-black/20 min-h-[550px] text-white backdrop-blur-[32px] rounded-3xl py-5 px-6 mb-10 ">
         {loading ? (
-          <div className="w-full h-full flex justify-center items-center">
+          <div className="w-full h-screen flex justify-center items-center">
             <ImSpinner8 className="text-white text-5xl animate-spin" />
           </div>
         ) : (
@@ -177,42 +177,39 @@ const App = () => {
             <div className="max-w-[378px] mx-auto flex flex-col gap-y-6">
               <div className="flex justify-between">
                 <div className="flex items-center gap-x-2">
-                  <div className=" text-[20px]">
+                  <div className="text-[20px]">
                     <BsEye />
                   </div>
-                  <div>
+                  <div className=" text-sm md:text-base">
                     Visibility{" "}
                     <span className="ml-2">{data.visibility / 1000} km</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-x-2">
-                  <div className=" text-[20px]">
-                    <BsThermometer />
+                  <div className="text-[20px]">
+                    <IoMdCloudy />
                   </div>
-                  <div className="flex">
-                    Temperature
-                    <div className="flex ml-2">
-                      {parseInt(data.main.feels_like)}
-                      <TbTemperatureCelsius />
-                    </div>
+                  <div className="flex text-sm md:text-base">
+                    Clouds
+                    <div className="flex ml-2">{data.clouds.all} %</div>
                   </div>
                 </div>
               </div>
               <div className="flex justify-between">
                 <div className="flex items-center gap-x-2">
-                  <div className=" text-[20px]">
+                  <div className="text-[20px]">
                     <BsWater />
                   </div>
-                  <div>
+                  <div className=" text-sm md:text-base">
                     Humidity
                     <span className="ml-2">{data.main.humidity} %</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-x-2">
-                  <div className=" text-[20px]">
+                  <div className="text-[20px]">
                     <BsWind />
                   </div>
-                  <div>
+                  <div className=" text-sm md:text-base">
                     Wind
                     <span className="ml-2">{data.wind.speed} m/s</span>
                   </div>
